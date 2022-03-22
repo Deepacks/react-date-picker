@@ -1,0 +1,13 @@
+@import "./helpers/index.scss";
+
+.iconButton_button_simple {
+  cursor: pointer;
+  font-size: $md;
+  color: $focus;
+  height: 25px;
+  width: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+}

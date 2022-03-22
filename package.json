@@ -1,27 +1,48 @@
 {
-  "name": "react-date-picker",
-  "version": "0.1.0",
-  "private": true,
+  "name": "@deepacks/react-date-picker",
+  "version": "0.2.4",
+  "private": false,
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "components",
+    "ui",
+    "calendar",
+    "date-picker"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Deepacks/react-date-picker.git"
+  },
+  "author": "Deepacks",
   "dependencies": {
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^12.0.0",
-    "@testing-library/user-event": "^13.2.1",
-    "@types/jest": "^27.0.1",
-    "@types/node": "^16.7.13",
-    "@types/react": "^17.0.20",
-    "@types/react-dom": "^17.0.9",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "@babel/polyfill": "^7.12.1",
     "react-icons": "^4.3.1",
     "react-scripts": "5.0.0",
     "react-use": "^17.3.2",
     "sass": "^1.49.9",
-    "typescript": "^4.4.2",
-    "web-vitals": "^2.1.0"
+    "typescript": "^4.4.2"
+  },
+  "peerDependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.8",
+    "@babel/preset-env": "^7.16.11",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.7.13",
+    "@types/react": "^17.0.20",
+    "@types/react-dom": "^17.0.9",
+    "typed-scss-modules": "^6.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "prepublish": "tsc",
+    "deploy": "npm publish --access public",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

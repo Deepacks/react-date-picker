@@ -1,0 +1,189 @@
+@import "./helpers/index.scss";
+
+.datePicker_container {
+  position: relative;
+  width: 300px;
+  color: white;
+  font-family: "Be Vietnam Pro", sans-serif;
+
+  div,
+  section {
+    box-sizing: border-box !important;
+  }
+
+  textarea:focus,
+  input:focus {
+    outline: none !important;
+  }
+
+  button {
+    border: none;
+    padding: 0;
+  }
+
+  h4,
+  h6 {
+    margin: 0;
+    font-weight: normal;
+  }
+}
+
+.datePicker_anchor_container {
+  cursor: pointer;
+  background-color: $background;
+  width: 300px;
+  height: 46px;
+  border-radius: 6px;
+  padding: 0 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 0 0 1px $focus;
+
+  > div {
+    display: flex;
+    align-items: center;
+    @include disable_text_select;
+  }
+
+  svg {
+    font-size: $md;
+    color: $focus;
+  }
+
+  .datePicker_svg_arrow_active {
+    transform: rotate(180deg);
+  }
+}
+.datePicker_anchor_container_focus {
+  box-shadow: 0 0 0 2px $link;
+}
+
+.datePicker_anchor_label_container {
+  margin-left: 12px;
+  position: relative;
+  bottom: 0;
+  transition: bottom 0.2s;
+
+  &.datePicker_anchor_label_container_with_value {
+    bottom: 1px;
+  }
+
+  > h6 {
+    flex: 1;
+    font-size: $sssm;
+    transition: font-size 0.2s;
+
+    &.datePicker_anchor_placeholder_extended {
+      font-size: $sm;
+    }
+  }
+
+  > div {
+    font-size: $sm;
+    line-height: $md;
+    max-height: 24px;
+    overflow: hidden;
+    transition: max-height 0.2s;
+
+    &.datePicker_anchor_value_retracted {
+      max-height: 0;
+    }
+  }
+}
+
+.datePicker_menu_container {
+  @include disable_text_select;
+  max-height: 0px;
+  opacity: 0;
+  padding: 20px 12px;
+  visibility: hidden;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 56px;
+  background-color: $background;
+  box-shadow: 0 0 0 1px $focus;
+  border-radius: 6px;
+  overflow: hidden;
+  transition: max-height 0.15s, opacity 0.4s;
+}
+.datePicker_menu_container_open {
+  max-height: 387.954px;
+  opacity: 1;
+  visibility: visible;
+  z-index: 1;
+}
+
+.datePicker_menu_header_flex {
+  margin: 0 4px 6px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  > h4 {
+    font-weight: bold;
+  }
+
+  > div {
+    width: 68px;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.datePicker_menu_days_row {
+  display: flex;
+}
+
+.datePicker_menu_day_container {
+  flex: 1;
+  height: 39.422px;
+  font-size: $ssm;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    > div {
+      background-color: rgba($color: $link, $alpha: 0.4);
+    }
+  }
+
+  > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 75%;
+    height: 75%;
+    border-radius: 100%;
+
+    &.datePicker_menu_day_inner_active {
+      background-color: rgba($color: $link, $alpha: 0.65);
+    }
+    &.datePicker_menu_day_inner_selected {
+      background-color: rgba($color: $link, $alpha: 1);
+    }
+  }
+}
+.datePicker_menu_day_prev_container {
+  color: grey;
+}
+
+.datePicker_menu_footer_flex {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-around;
+
+  > div {
+    width: 44%;
+  }
+}
+
+.datePicker_menu_footer_cancel_button {
+  background: linear-gradient(
+    125deg,
+    $grey_cancel,
+    $grey_cancel_dark
+  ) !important;
+}

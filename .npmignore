@@ -1,0 +1,6 @@
+public/
+src/
+node_modules/
+.prettierrc
+.tsconfig.json
+.babel.config.json
