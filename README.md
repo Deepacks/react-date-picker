@@ -1,7 +1,7 @@
 # React-date-picker
 
-This is an easy to configure date picker for react.
-Style customisation is in development
+This is an easy to use date picker for react.
+Style customisation is in development.
 
 ## Installation
 
@@ -19,7 +19,7 @@ yarn add react-datepicker
 
 ## Configuration
 
-The DatePicker requirest a state containing the UTC string of the date (or an empty string) to work:
+The DatePicker requires a state containing the UTC string of the date (or an empty string) to work:
 
 ```js
 const [utcDateString, setUtcDateString] = useState("")
