@@ -53,19 +53,19 @@ export var useBuildCalendar = function () {
     var getWeekDayLetter = function (weekDay) {
         switch (weekDay) {
             case 1:
-                return "L";
+                return "M";
             case 2:
-                return "M";
+                return "T";
             case 3:
-                return "M";
+                return "W";
             case 4:
-                return "G";
+                return "T";
             case 5:
-                return "V";
+                return "F";
             case 6:
                 return "S";
             case 7:
-                return "D";
+                return "S";
             default:
                 return "";
         }
@@ -73,29 +73,29 @@ export var useBuildCalendar = function () {
     var getMonthName = function (monthNumber) {
         switch (monthNumber) {
             case 1:
-                return "Gennaio";
+                return "Jan";
             case 2:
-                return "Febbraio";
+                return "Feb";
             case 3:
-                return "Marzo";
+                return "Mar";
             case 4:
-                return "Aprile";
+                return "Apr";
             case 5:
-                return "Maggio";
+                return "May";
             case 6:
-                return "Giugno";
+                return "Jun";
             case 7:
-                return "Luglio";
+                return "Jul";
             case 8:
-                return "Agosto";
+                return "Aug";
             case 9:
-                return "Settembre";
+                return "Sep";
             case 10:
-                return "Ottobre";
+                return "Oct";
             case 11:
-                return "Novembre";
+                return "Nov";
             case 12:
-                return "Dicembre";
+                return "Dec";
             default:
                 return "";
         }

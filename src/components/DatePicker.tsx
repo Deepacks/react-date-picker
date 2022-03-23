@@ -111,7 +111,7 @@ const DatePicker: FunctionComponent<DatePickerProps> = ({
                       : styles.datePicker_anchor_placeholder_extended
                   }
                 >
-                  Scegli un giorno
+                  Select a day
                 </h6>
                 <div
                   className={
@@ -146,6 +146,12 @@ const DatePicker: FunctionComponent<DatePickerProps> = ({
       useClickAway(menuRef, () => {
         if (isClickAwayDisabled || !isSelect) return
         setSelectMode(!isSelect)
+
+        if (stringDate.length > 0) {
+          const actualDate = new Date(stringDate)
+          setActiveDate(actualDate)
+          goToDateMonth(actualDate)
+        } else goToDateMonth(new Date())
       })
 
       const {
@@ -365,12 +371,12 @@ const DatePicker: FunctionComponent<DatePickerProps> = ({
                 className={styles.datePicker_menu_footer_cancel_button}
                 onClick={handleCancelClick}
               >
-                Annulla
+                Cancel
               </Button>
             </div>
 
             <div>
-              <Button onClick={handleDoneClick}>Fatto</Button>
+              <Button onClick={handleDoneClick}>Done</Button>
             </div>
           </section>
         </div>

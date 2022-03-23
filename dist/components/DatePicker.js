@@ -52,7 +52,7 @@ var DatePicker = function (_a) {
                                     ? styles.datePicker_anchor_label_container_with_value
                                     : "") }, { children: [_jsx("h6", __assign({ className: stringDate.length > 0
                                             ? ""
-                                            : styles.datePicker_anchor_placeholder_extended }, { children: "Scegli un giorno" })), _jsx("div", __assign({ className: stringDate.length > 0
+                                            : styles.datePicker_anchor_placeholder_extended }, { children: "Select a day" })), _jsx("div", __assign({ className: stringDate.length > 0
                                             ? ""
                                             : styles.datePicker_anchor_value_retracted }, { children: useFormatDateTime(stringDate).date }))] }))] }), _jsx(HiOutlineChevronDown, { className: isSelect ? styles.datePicker_svg_arrow_active : "" })] })));
         };
@@ -65,6 +65,13 @@ var DatePicker = function (_a) {
                 if (isClickAwayDisabled || !isSelect)
                     return;
                 setSelectMode(!isSelect);
+                if (stringDate.length > 0) {
+                    var actualDate = new Date(stringDate);
+                    setActiveDate(actualDate);
+                    goToDateMonth(actualDate);
+                }
+                else
+                    goToDateMonth(new Date());
             });
             var _b = useBuildCalendar(), daysInMonth = _b.daysInMonth, firstDayOfMonth = _b.firstDayOfMonth, currentMonth = _b.currentMonth, currentYear = _b.currentYear, getPrevMonthLastDays = _b.getPrevMonthLastDays, getNextMonth = _b.getNextMonth, getPrevMonth = _b.getPrevMonth, goToDateMonth = _b.goToDateMonth, getWeekDayLetter = _b.getWeekDayLetter, getMonthName = _b.getMonthName;
             var handlePrevMonth = useCallback(function () {
@@ -128,7 +135,7 @@ var DatePicker = function (_a) {
                                             (7 * (index - 1) + 1) -
                                             (firstDayOfMonth - 1) -
                                             daysInMonth, isNextMonth: true }, idx));
-                                }) })) }), index)); }) }), _jsxs("section", __assign({ className: styles.datePicker_menu_footer_flex }, { children: [_jsx("div", { children: _jsx(Button, __assign({ className: styles.datePicker_menu_footer_cancel_button, onClick: handleCancelClick }, { children: "Annulla" })) }), _jsx("div", { children: _jsx(Button, __assign({ onClick: handleDoneClick }, { children: "Fatto" })) })] }))] })));
+                                }) })) }), index)); }) }), _jsxs("section", __assign({ className: styles.datePicker_menu_footer_flex }, { children: [_jsx("div", { children: _jsx(Button, __assign({ className: styles.datePicker_menu_footer_cancel_button, onClick: handleCancelClick }, { children: "Cancel" })) }), _jsx("div", { children: _jsx(Button, __assign({ onClick: handleDoneClick }, { children: "Done" })) })] }))] })));
         };
     }, []);
     return (_jsxs("div", __assign({ className: styles.datePicker_container }, { children: [_jsx(DatePickerAnchor, { isSelect: selectMode, stringDate: value, onAnchorClick: handleAnchorClick, onAnchorHover: handleAnchorHover, onAnchorLeave: handleAnchorLeave }), _jsx(DatePickerMenu, { isSelect: selectMode, stringDate: value, activeInnerDate: activeDate, isClickAwayDisabled: disableClickAway, onDatePress: handleActiveDateChange, onDonePress: handleDonePress, onCancelPress: handleCancelPress })] })));
