@@ -19,7 +19,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     return to.concat(ar || Array.prototype.slice.call(from));
 };
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
-import { useCallback, useEffect, useMemo, useRef, useState, } from "react";
+import { useCallback, useMemo, useRef, useState, } from "react";
 import { useClickAway } from "react-use";
 import { HiOutlineCalendar, HiOutlineChevronDown, HiOutlineChevronLeft, HiOutlineChevronRight, } from "react-icons/hi";
 import { useFormatDateTime } from "./hooks/useFormatDateTime";
@@ -45,15 +45,8 @@ var DatePicker = function (_a) {
     var handleCancelPress = useCallback(function () {
         setSelectMode(false);
     }, []);
-    useEffect(function () {
-        if (!selectMode && value === "")
-            setActiveDate(undefined);
-        else if (!selectMode && new Date(value).getTime() !== (activeDate === null || activeDate === void 0 ? void 0 : activeDate.getTime()))
-            setActiveDate(new Date(value));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectMode]);
     var DatePickerAnchor = useMemo(function () {
-        return function DatePickerComponent(_a) {
+        return function DatePickerAnchorComponent(_a) {
             var stringDate = _a.stringDate, isSelect = _a.isSelect, onAnchorClick = _a.onAnchorClick, onAnchorHover = _a.onAnchorHover, onAnchorLeave = _a.onAnchorLeave;
             return (_jsxs("div", __assign({ className: "".concat(styles.datePicker_anchor_container, " ").concat(isSelect ? styles.datePicker_anchor_container_focus : ""), onClick: onAnchorClick, onMouseEnter: onAnchorHover, onMouseLeave: onAnchorLeave }, { children: [_jsxs("div", { children: [_jsx(HiOutlineCalendar, {}), _jsxs("div", __assign({ className: "".concat(styles.datePicker_anchor_label_container, " ").concat(stringDate.length > 0
                                     ? styles.datePicker_anchor_label_container_with_value
@@ -65,7 +58,7 @@ var DatePicker = function (_a) {
         };
     }, []);
     var DatePickerMenu = useMemo(function () {
-        return function DatePickerComponent(_a) {
+        return function DatePickerMenuComponent(_a) {
             var isSelect = _a.isSelect, stringDate = _a.stringDate, activeInnerDate = _a.activeInnerDate, isClickAwayDisabled = _a.isClickAwayDisabled, onDatePress = _a.onDatePress, onDonePress = _a.onDonePress, onCancelPress = _a.onCancelPress;
             var menuRef = useRef();
             useClickAway(menuRef, function () {
@@ -74,15 +67,6 @@ var DatePicker = function (_a) {
                 setSelectMode(!isSelect);
             });
             var _b = useBuildCalendar(), daysInMonth = _b.daysInMonth, firstDayOfMonth = _b.firstDayOfMonth, currentMonth = _b.currentMonth, currentYear = _b.currentYear, getPrevMonthLastDays = _b.getPrevMonthLastDays, getNextMonth = _b.getNextMonth, getPrevMonth = _b.getPrevMonth, goToDateMonth = _b.goToDateMonth, getWeekDayLetter = _b.getWeekDayLetter, getMonthName = _b.getMonthName;
-            useEffect(function () {
-                if (!isSelect && stringDate !== "") {
-                    goToDateMonth(new Date(stringDate));
-                }
-                else {
-                    goToDateMonth(new Date());
-                }
-                // eslint-disable-next-line react-hooks/exhaustive-deps
-            }, [isSelect]);
             var handlePrevMonth = useCallback(function () {
                 getPrevMonth();
             }, [getPrevMonth]);
@@ -100,9 +84,23 @@ var DatePicker = function (_a) {
             var handleDatePress = useCallback(function (dayNumber) {
                 onDatePress(new Date(currentYear, currentMonth - 1, dayNumber));
             }, [currentMonth, currentYear, onDatePress]);
+            var handleCancelClick = useCallback(function () {
+                onCancelPress();
+                if (stringDate.length > 0) {
+                    var actualDate = new Date(stringDate);
+                    setActiveDate(actualDate);
+                    goToDateMonth(actualDate);
+                }
+                else
+                    goToDateMonth(new Date());
+            }, [goToDateMonth, onCancelPress, stringDate]);
             var handleDoneClick = useCallback(function () {
                 onDonePress(activeInnerDate ? activeInnerDate.toUTCString() : "");
-            }, [activeInnerDate, onDonePress]);
+                if (activeInnerDate)
+                    goToDateMonth(activeInnerDate);
+                else
+                    goToDateMonth(new Date());
+            }, [activeInnerDate, goToDateMonth, onDonePress]);
             var DayBox = useMemo(function () {
                 return function DayBoxComponent(_a) {
                     var _b = _a.innerValue, innerValue = _b === void 0 ? "" : _b, _c = _a.isPrevMonth, isPrevMonth = _c === void 0 ? false : _c, _d = _a.isNextMonth, isNextMonth = _d === void 0 ? false : _d, _e = _a.isDateActive, isDateActive = _e === void 0 ? function () { return false; } : _e, _f = _a.isDateSelected, isDateSelected = _f === void 0 ? function () { return false; } : _f, _g = _a.onBoxPress, onBoxPress = _g === void 0 ? function () { } : _g;
@@ -130,7 +128,7 @@ var DatePicker = function (_a) {
                                             (7 * (index - 1) + 1) -
                                             (firstDayOfMonth - 1) -
                                             daysInMonth, isNextMonth: true }, idx));
-                                }) })) }), index)); }) }), _jsxs("section", __assign({ className: styles.datePicker_menu_footer_flex }, { children: [_jsx("div", { children: _jsx(Button, __assign({ className: styles.datePicker_menu_footer_cancel_button, onClick: onCancelPress }, { children: "Annulla" })) }), _jsx("div", { children: _jsx(Button, __assign({ onClick: handleDoneClick }, { children: "Fatto" })) })] }))] })));
+                                }) })) }), index)); }) }), _jsxs("section", __assign({ className: styles.datePicker_menu_footer_flex }, { children: [_jsx("div", { children: _jsx(Button, __assign({ className: styles.datePicker_menu_footer_cancel_button, onClick: handleCancelClick }, { children: "Annulla" })) }), _jsx("div", { children: _jsx(Button, __assign({ onClick: handleDoneClick }, { children: "Fatto" })) })] }))] })));
         };
     }, []);
     return (_jsxs("div", __assign({ className: styles.datePicker_container }, { children: [_jsx(DatePickerAnchor, { isSelect: selectMode, stringDate: value, onAnchorClick: handleAnchorClick, onAnchorHover: handleAnchorHover, onAnchorLeave: handleAnchorLeave }), _jsx(DatePickerMenu, { isSelect: selectMode, stringDate: value, activeInnerDate: activeDate, isClickAwayDisabled: disableClickAway, onDatePress: handleActiveDateChange, onDonePress: handleDonePress, onCancelPress: handleCancelPress })] })));

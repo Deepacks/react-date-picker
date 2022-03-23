@@ -1,7 +1,6 @@
 import {
   FunctionComponent,
   useCallback,
-  useEffect,
   useMemo,
   useRef,
   useState,
@@ -78,16 +77,9 @@ const DatePicker: FunctionComponent<DatePickerProps> = ({
     setSelectMode(false)
   }, [])
 
-  useEffect(() => {
-    if (!selectMode && value === "") setActiveDate(undefined)
-    else if (!selectMode && new Date(value).getTime() !== activeDate?.getTime())
-      setActiveDate(new Date(value))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectMode])
-
   const DatePickerAnchor: FunctionComponent<DatePickerAnchorProps> =
     useMemo(() => {
-      return function DatePickerComponent({
+      return function DatePickerAnchorComponent({
         stringDate,
         isSelect,
         onAnchorClick,
@@ -141,7 +133,7 @@ const DatePicker: FunctionComponent<DatePickerProps> = ({
     }, [])
 
   const DatePickerMenu: FunctionComponent<DatePickerMenuProps> = useMemo(() => {
-    return function DatePickerComponent({
+    return function DatePickerMenuComponent({
       isSelect,
       stringDate,
       activeInnerDate,
@@ -168,15 +160,6 @@ const DatePicker: FunctionComponent<DatePickerProps> = ({
         getWeekDayLetter,
         getMonthName,
       } = useBuildCalendar()
-
-      useEffect(() => {
-        if (!isSelect && stringDate !== "") {
-          goToDateMonth(new Date(stringDate))
-        } else {
-          goToDateMonth(new Date())
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, [isSelect])
 
       const handlePrevMonth = useCallback(() => {
         getPrevMonth()
@@ -213,9 +196,20 @@ const DatePicker: FunctionComponent<DatePickerProps> = ({
         [currentMonth, currentYear, onDatePress]
       )
 
+      const handleCancelClick: () => void = useCallback(() => {
+        onCancelPress()
+        if (stringDate.length > 0) {
+          const actualDate = new Date(stringDate)
+          setActiveDate(actualDate)
+          goToDateMonth(actualDate)
+        } else goToDateMonth(new Date())
+      }, [goToDateMonth, onCancelPress, stringDate])
+
       const handleDoneClick: () => void = useCallback(() => {
         onDonePress(activeInnerDate ? activeInnerDate.toUTCString() : "")
-      }, [activeInnerDate, onDonePress])
+        if (activeInnerDate) goToDateMonth(activeInnerDate)
+        else goToDateMonth(new Date())
+      }, [activeInnerDate, goToDateMonth, onDonePress])
 
       const DayBox: FunctionComponent<{
         innerValue?: number | string
@@ -369,7 +363,7 @@ const DatePicker: FunctionComponent<DatePickerProps> = ({
             <div>
               <Button
                 className={styles.datePicker_menu_footer_cancel_button}
-                onClick={onCancelPress}
+                onClick={handleCancelClick}
               >
                 Annulla
               </Button>

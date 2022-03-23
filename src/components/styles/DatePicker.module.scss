@@ -33,7 +33,7 @@
   background-color: $background;
   width: 300px;
   height: 46px;
-  border-radius: 6px;
+  border-radius: 8px;
   padding: 0 14px;
   display: flex;
   align-items: center;
@@ -54,9 +54,10 @@
   .datePicker_svg_arrow_active {
     transform: rotate(180deg);
   }
-}
-.datePicker_anchor_container_focus {
-  box-shadow: 0 0 0 2px $link;
+
+  &.datePicker_anchor_container_focus {
+    box-shadow: 0 0 0 2px $link;
+  }
 }
 
 .datePicker_anchor_label_container {
@@ -103,8 +104,8 @@
   right: 0;
   top: 56px;
   background-color: $background;
-  box-shadow: 0 0 0 1px $focus;
-  border-radius: 6px;
+  box-shadow: 0 0 6px 1px #00000033;
+  border-radius: 12px;
   overflow: hidden;
   transition: max-height 0.15s, opacity 0.4s;
 }
@@ -116,10 +117,12 @@
 }
 
 .datePicker_menu_header_flex {
-  margin: 0 4px 6px 10px;
+  width: 100%;
+  padding: 0 4px 0 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 6px;
 
   > h4 {
     font-weight: bold;
